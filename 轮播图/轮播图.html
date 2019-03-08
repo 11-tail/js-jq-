@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>全屏轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ol li,
+        ul li {
+            list-style: none;
+        }
+
+        #box {
+            width: 100%;
+            height: 570px;
+            position: relative;
+        }
+
+        #box .img-box {
+            height: 100%;
+            position: relative;
+        }
+
+        #box .img-box li {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            transition: all 1s;
+            opacity: 0;
+        }
+
+        #box .img-box li:first-child {
+            z-index: 1;
+            opacity: 1;
+        }
+
+        #box .img-box a {
+            display: block;
+            font-size: 100px;
+            height: 600px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #box .img-box a img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #box .list-box {
+            position: absolute;
+            bottom: 35px;
+            z-index: 2;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #box .list-box li {
+            width: 6px;
+            height: 6px;
+            border: 2px solid #fff;
+            background-color: #000;
+            border-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            float: left;
+            background: rgba(0,0,0,0.4);
+            margin-right: 10px;
+            transition: all .2s;
+        }
+
+        #box .list-box li:last-child {
+            margin-right: 0;
+        }
+
+        #box .box-btn i {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            z-index: 2;
+            font-size: 50px;
+        }
+
+        #box .box-btn .box-btn-left:hover {
+            background-position: 0 50%;
+        }
+
+        #box .box-btn-left {
+            left: 0;
+            width: 41px;
+            height: 69px;
+            background: url(jt.png) no-repeat -84px 50%;
+        }
+
+        #box .box-btn-right {
+            right: 0;
+            width: 41px;
+            height: 69px;
+            background: url(jt.png) no-repeat -125px 50%;
+        }
+
+        #box .box-btn-right:hover {
+            background-position: -42px 50%;
+        }
+
+        #box .list-box li.active {
+            background: rgba(255,255,255,0.4);
+            border-color: rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul class="img-box">
+            <li><a href="javascript:;"><img src="1.jpg" alt=""></a></li>
+            <li><a href="javascript:;"><img src="2.jpg" alt=""></a></li>
+            <li><a href="javascript:;"><img src="3.jpg" alt=""></a></li>
+            <li><a href="javascript:;"><img src="4.jpg" alt=""></a></li>
+        </ul>
+        <ul class="list-box">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="box-btn">
+            <i class="box-btn-left"></i>
+            <i class="box-btn-right"></i>
+        </div>
+    </div>
+    <script>
+        // 获取元素
+        var box = document.querySelector('#box');
+        var imgArr = document.querySelectorAll('.img-box li');
+        var listArr = document.querySelectorAll('.list-box li');
+        var prev = document.querySelector('.box-btn-left');
+        var next = document.querySelector('.box-btn-right');
+        var timer = null;
+        // 当前页面的索引
+        var currentIndex = 0;
+
+        // 把当前页面显示
+        // 其他页面隐藏
+        function animate(index) {
+            for (var i = 0; i < imgArr.length; i++) {
+                imgArr[i].style.opacity = 0;
+                imgArr[i].style.zIndex = 0;
+                listArr[i].className = '';
+            }
+            imgArr[index].style.opacity = 1;
+            imgArr[index].style.zIndex = 1;
+            listArr[index].className = 'active';
+
+        }
+        // 给每一个圆点绑定点击事件
+        for (let i = 0; i < listArr.length; i++) {
+            listArr[i].onclick = function () {
+                currentIndex = i;
+                animate(currentIndex);
+            }
+        }
+
+        // 自动播放函数
+        function autoplay(method) {
+            if (method == 'next') {
+                currentIndex++;
+                if (currentIndex > imgArr.length - 1) {
+                    currentIndex = 0;
+                }
+            }
+            if (method == 'prev') {
+                currentIndex--;
+                if (currentIndex < 0) {
+                    currentIndex = imgArr.length - 1;
+                }
+            }
+            animate(currentIndex)
+        }
+        // 右切换按钮绑定点击事件
+        next.onclick = () => {
+            autoplay('next')
+        };
+        // 左切换按钮绑定点击事件
+        prev.onclick = () => {
+            autoplay('prev')
+        };
+
+        timer = setInterval(() => {
+            autoplay('next')
+        }, 2000);
+        // 鼠标移入清除定时器
+        box.onmouseenter = function () {
+            clearInterval(timer);
+        }
+        // 鼠标移出开启定时器
+        box.onmouseleave = function () {
+            timer = setInterval(() => {
+                autoplay('next')
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>
