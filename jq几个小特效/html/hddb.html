@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>下拉式吸顶和回到顶部</title>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+    <script src="../js/特效合集.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #box {
+            width: 100%;
+            height: 2000px;
+            position: relative;
+        }
+
+        .logo {
+            height: 200px;
+            width: 100%;
+            background: pink;
+        }
+
+        .nav {
+            height: 100px;
+            width: 100%;
+            background: #cfbb06;
+            position: relative;
+        }
+
+        .nav1 {
+            height: 0px;
+            width: 100%;
+            background: #58bc58;
+            position: relative;
+            /* top: -100px; */
+            transition: all .2s;
+            overflow: hidden;
+        }
+
+        .move {
+            background: #58bc58;
+            position: fixed;
+            height: 100px;
+            width: 100%;
+            top: 0px;
+            transition: all .2s;
+            border-bottom: 2px solid #ffffff;
+            box-sizing: border-box;
+        }
+
+        .go {
+            position: fixed;
+            right: 0;
+            top: 60%;
+            display: none;
+        }
+
+        .bigbox {
+            width: 100%;
+            height: 1200px;
+
+        }
+
+        .tab {
+            width: 1000px;
+            position: absolute;
+            top: 0;
+            left: 15%;
+        }
+
+        .tab ol {
+            display: block;
+            float: left;
+            width: 1000px;
+            height: 50px;
+            background: blue;
+            overflow: hidden;
+        }
+
+        .tab ol li {
+            float: left;
+            width: 250px;
+            height: 50px;
+            background: rgb(0, 255, 255);
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .tab ol li.active {
+            background: yellow;
+        }
+
+        .tab ul {
+            display: block;
+            overflow: hidden;
+            width: 1000px;
+            height: 350px;
+        }
+
+        .tab ul img {
+            width: 100%;
+            height: 0px;
+        }
+
+        .tab ul li {
+            float: left;
+            width: 250px;
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="box">
+        <div class="logo"></div>
+        <div class="nav">
+            <img src="../images/kksk.gif" alt="" style="width: 100px;float: left;">
+            <div id="tab" class="tab">
+
+                <ol>
+                    <li class="active">下</li>
+                    <li>拉</li>
+                    <li>选</li>
+                    <li>项</li>
+                </ol>
+                <ul>
+                    <li class="cur"><img src="../images/4.jpg" alt=""></li>
+                    <li><img src="../images/3.jpg" alt=""></li>
+                    <li><img src=" ../images/2.jpg" alt=""></li>
+                    <li><img src="../images/1.jpg" alt=""></li>
+                </ul>
+            </div>
+            <img src="../images/kksk.gif" alt="" style="width: 100px;float: right;">
+        </div>
+        <div class="nav1">
+            <img src="../images/kksk.gif" alt="" style="width: 100px;float: left;">
+            <div id="tab" class="tab">
+
+                <ol>
+                    <li class="active">下</li>
+                    <li>拉</li>
+                    <li>选</li>
+                    <li>项</li>
+                </ol>
+                <ul>
+                    <li class="cur"><img src="../images/4.jpg" alt=""></li>
+                    <li><img src="../images/3.jpg" alt=""></li>
+                    <li><img src=" ../images/2.jpg" alt=""></li>
+                    <li><img src="../images/1.jpg" alt=""></li>
+                </ul>
+            </div>
+            <img src="../images/kksk.gif" alt="" style="width: 100px;float: right;">
+        </div>
+        <div class="go">
+            <img src="../images/kksk.gif" alt="" style="width: 100px;">
+        </div>
+        <div class="bigbox">
+
+        </div>
+    </div>
+</body>
+
+</html>

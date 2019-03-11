@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>侧栏广告</title>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+    <style>
+        #box4 {
+            width: 200px;
+            height: 400px;
+            background: #ccc;
+            /*百度分享特效注意点  fixed*/
+            position: fixed;
+            /* right: 0; */
+            right: -200px;
+            top: 50%;
+            transform: translateY(-50%);
+            /*transition: all 0.5s;*/
+        }
+
+        .share {
+            position: absolute;
+            top: 50%;
+            left: -30px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 100px;
+            background: rgb(255, 217, 0);
+        }
+
+        .share span {
+            display: inline-block;
+            color: #fff;
+            text-align: center;
+            margin-top: 30px;
+        }
+        #box2 {
+            width: 200px;
+            height: 400px;
+            background: #ccc;
+            position: fixed;
+            left: -200px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .share2 {
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 100px;
+            background: rgb(255, 217, 0);
+        }
+
+        .share2 .span2 {
+            display: inline-block;
+            color: #fff;
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+    <script src="../js/特效合集.js">
+        
+    </script>
+</head>
+
+<body>
+    <div id="box4">
+        <img src="../images/kksk.gif" alt="" style="width: 100px; float: right;">
+        <!-- <img src="摇头.gif" alt="" style="width: 100px; float: right;">
+        <img src="摇头.gif" alt="" style="width: 100px; float: right;">
+        <img src="摇头.gif" alt="" style="width: 100px; float: right;">
+        <img src="摇头.gif" alt="" style="width: 100px; float: right;">
+        <img src="摇头.gif" alt="" style="width: 100px; float: right;">
+        <img src="摇头.gif" alt="" style="width: 100px; float: right;">
+        <img src="摇头.gif" alt="" style="width: 100px; float: right;"> -->
+        <div class="share">
+            <span>向日葵</span>
+        </div>
+    </div>
+    <div id="box2">
+            <img src="../images/kksk.gif" alt="" style="width: 100px; float: left;">
+            <!-- <img src="摇头.gif" alt="" style="width: 100px; float: left;">
+            <img src="摇头.gif" alt="" style="width: 100px; float: left;">
+            <img src="摇头.gif" alt="" style="width: 100px; float: left;">
+            <img src="摇头.gif" alt="" style="width: 100px; float: left;">
+            <img src="摇头.gif" alt="" style="width: 100px; float: left;">
+            <img src="摇头.gif" alt="" style="width: 100px; float: left;">
+            <img src="摇头.gif" alt="" style="width: 100px; float: left;"> -->
+        <div class="share2">
+            <span class="span2">向日葵</span>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>全屏轮播图</title>
+    <script src="../js/common.js"></script>
+    <script src="../js/jquery-1.10.1.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ol li,
+        ul li {
+            list-style: none;
+        }
+
+        #box3 {
+            width: 100%;
+            height: 570px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #box3 .img-box {
+            height: 100%;
+            position: relative;
+        }
+
+        #box3 .img-box li {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            /* transition: all 1s; */
+            /* opacity: 0; */
+        }
+
+        #box3 .img-box li:first-child {
+            z-index: 1;
+            opacity: 1;
+        }
+
+        #box3 .img-box a {
+            display: block;
+            font-size: 100px;
+            height: 600px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #box3 .img-box a img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #box3 .list-box {
+            position: absolute;
+            bottom: 35px;
+            z-index: 2;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #box3 .list-box li {
+            width: 6px;
+            height: 6px;
+            border: 2px solid #fff;
+            background-color: #000;
+            border-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            float: left;
+            background: rgba(0, 0, 0, 0.4);
+            margin-right: 10px;
+            /* transition: all .2s; */
+        }
+
+        #box3 .list-box li:last-child {
+            margin-right: 0;
+        }
+
+        #box3 .box-btn i {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            z-index: 2;
+            font-size: 50px;
+        }
+
+        #box3 .box-btn .prev:hover {
+            background-position: 0 50%;
+        }
+
+        #box3 .prev {
+            left: -41px;
+            width: 41px;
+            height: 69px;
+            background: url(../images/jt.png) no-repeat -84px 50%;
+        }
+
+        #box3 .next {
+            right: -41px;
+            width: 41px;
+            height: 69px;
+            background: url(../images/jt.png) no-repeat -125px 50%;
+        }
+
+        #box3 .next:hover {
+            background-position: -42px 50%;
+        }
+
+        #box3 .list-box li.active {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+    <script>
+        $(function () {
+            var timer = null;
+            var cur = 0;
+            var len = $(".img-box li").length;
+            //鼠标滑过容器停止播放 点击事件出现
+            $("#box3").hover(function () {
+                clearInterval(timer);
+                $('.prev')
+                    .stop()
+                    .animate({
+                        'left': 0
+                    }, 200, 'linear');
+
+                $('.next')
+                    .stop()
+                    .animate({
+                        'right': 0
+                    }, 200, 'linear');
+            }, function () {
+                showImg();
+                $('.prev')
+                    .stop()
+                    .animate({
+                        'left': -41
+                    }, 200, 'linear');
+                $('.next')
+                    .stop()
+                    .animate({
+                        'right': -41
+                    }, 200, 'linear');
+            });
+            // 遍历所有圆点导航实现点击切换至对应的图片
+            $(".list-box li").click(function () {
+                clearInterval(timer);
+                cur = $(this).index();
+                $(this).addClass("active")
+                    .siblings().removeClass("active");
+
+                $(".img-box li")
+                    .eq(cur)
+                    .fadeIn(1000)
+                    .siblings("li")
+                    .fadeOut(1000);
+            });
+            //定义图片切换函数
+            function showImg() {
+                timer = setInterval(function () {
+                    cur++;
+                    if (cur >= len) {
+                        cur = 0;
+                    }
+                    carousel(cur)
+                }, 2000);
+            }
+            showImg();
+            //点击事件
+            $('.prev').on('click', function () {
+                //切到上一张
+                cur = --cur < 0 ? $('.img-box li').size() - 1 : cur;
+                // console.log(cur);
+                carousel(cur)
+            });
+            $('.next').on('click', function () {
+                //往下切换
+                cur = ++cur > $('.img-box li').size() - 1 ? 0 : cur;
+                // console.log(cur);
+                carousel(cur)
+            })
+        });
+        //轮播切换事件 点击原点切换事件
+        function carousel(cur) {
+            $(".img-box li")
+                .eq(cur)
+                .fadeIn(1000)
+                .siblings("li")
+                .fadeOut(1000);
+
+            $(".list-box li")
+                .eq(cur)
+                .addClass("active")
+                .siblings()
+                .removeClass("active");
+        }
+
+        // 获取元素
+        // var box = document.querySelector('#box');
+        // var imgArr = document.querySelectorAll('.img-box li');
+        // var listArr = document.querySelectorAll('.list-box li');
+        // var prev = document.querySelector('.prev');
+        // var next = document.querySelector('.next');
+        // var timer = null;
+        // 当前页面的索引
+        // var num = 0;
+        // var currentIndex = 0;
+        // 把当前页面显示
+        // // 其他页面隐藏
+
+        // function animate(index) {
+        //     for (var i = 0; i < imgArr.length; i++) {
+        //         imgArr[i].style.opacity = 0;
+        //         imgArr[i].style.zIndex = 0;
+        //         listArr[i].className = '';
+        //     }
+        //     imgArr[index].style.opacity = 1;
+        //     imgArr[index].style.zIndex = 1;
+        //     listArr[index].className = 'active';
+        // }
+        // 给每一个圆点绑定点击事件
+        // for (let i = 0; i < listArr.length; i++) {
+        //     listArr[i].onclick = function () {
+        //         currentIndex = i;
+        //         animate(currentIndex);
+        //     }
+        // }
+
+        // 自动播放函数
+        // function autoplay(method) {
+        //     if (method == 'next') {
+        //         currentIndex++;
+        //         if (currentIndex > imgArr.length - 1) {
+        //             currentIndex = 0;
+        //         }
+        //     }
+        //     if (method == 'prev') {
+        //         currentIndex--;
+        //         if (currentIndex < 0) {
+        //             currentIndex = imgArr.length - 1;
+        //         }
+        //     }
+        //     animate(currentIndex)
+        // }
+        // 右切换按钮绑定点击事件
+        // next.onclick = () => {
+        //     autoplay('next')
+        // };
+        // 左切换按钮绑定点击事件
+        // prev.onclick = () => {
+        //     autoplay('prev')
+        // };
+
+        // timer = setInterval(() => {
+        //     autoplay('next')
+        // }, 2000);
+        // 鼠标移入清除定时器
+        // box.onmouseenter = function () {
+        //     clearInterval(timer);
+        // }
+        // 鼠标移出开启定时器
+        // box.onmouseleave = function () {
+        //     timer = setInterval(() => {
+        //         autoplay('next')
+        //     }, 2000);
+        // }
+    </script>
+</head>
+
+<body>
+    <div id="box3">
+        <ul class="img-box">
+            <li><a href="javascript:;"><img src="../images/01.jpg" alt=""></a></li>
+            <li><a href="javascript:;"><img src="../images/02.jpg" alt=""></a></li>
+            <li><a href="javascript:;"><img src="../images/03.jpg" alt=""></a></li>
+            <li><a href="javascript:;"><img src="../images/04.jpg" alt=""></a></li>
+        </ul>
+        <ul class="list-box">
+            <li class="active"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="box-btn">
+            <i class="prev"></i>
+            <i class="next"></i>
+        </div>
+    </div>
+
+</body>
+
+</html>
